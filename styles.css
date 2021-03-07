@@ -1,0 +1,21 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+#matter {
+    position: absolute;
+    bottom:0;
+    background-color: "white";
+    margin: auto;
+    }
+#canvas{
+    align-content: center;
+}
