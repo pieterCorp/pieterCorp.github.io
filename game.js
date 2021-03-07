@@ -45,7 +45,7 @@ let collider = Matter.Bodies.rectangle(400, 300, 500, 50, {
         fillStyle: 'transparent',
         lineWidth: 1,
         sprite: {
-            texture: './img/inn.png'
+            texture: './img/ball.png'
         }
     }
 });
