@@ -190,9 +190,14 @@ Matter.Events.on(engine, 'collisionEnd', function(event) {
         if (pair.bodyA === sensorLinkedIn || pair.bodyB === sensorLinkedIn) {
             LinkedIn();
         }
-
         else if(pair.bodyA === sensorGitHub || pair.bodyB === sensorGitHub){
-            doeIets();
+            GitHub();
+        }
+        else if(pair.bodyA === sensorAbout || pair.bodyB === sensorAbout){
+            About();
+        }
+        else if(pair.bodyA === sensorPlay || pair.bodyB === sensorPlay){
+            Play();
         }
     }
 });
@@ -205,22 +210,66 @@ window.onresize = function(){
    location.reload();
 };
 
+function LinkedIn(){
+    window.open(
+        'https://www.linkedin.com/in/pieter-vd-950228205/',
+        '_blank'
+      );
+}
 
-function doeIets(){
+function GitHub(){
+    window.open(
+        'https://github.com/pieterCorp',
+        '_blank'
+    );
+}
+
+function About(){
     let boll = Matter.Bodies.circle(900, 200, 20);
     Matter.World.add(engine.world,boll);
     console.log("test");
 }
 
-function doeIetsAnders(){
-    let hoek = Matter.Bodies.rectangle(900, 200, 20, 20);
-    Matter.World.add(engine.world,hoek);
-    console.log("test");
+function Play(){
+    console.log("play was hit");
+
+
+    Matter.World.clear( engine.world)
+    let ball = Matter.Bodies.circle(_width / 2, _height / 2, 20);
+let sling = Matter.Constraint.create({
+    pointA: { x: _width / 2, y:_height / 2 },
+    bodyB: ball,
+    stiffness: 0.05
+});
+
+let mouse = Matter.Mouse.create(render.canvas);
+let mouseConstraint = Matter.MouseConstraint.create(engine, {
+    mouse: mouse,
+    constraint: {
+        render: { visible: false }
+    }
+});
+
+render.mouse = mouse;
+
+let firing = false;
+Matter.Events.on(mouseConstraint, 'enddrag', function (e) {
+    if (e.body === ball) firing = true;
+});
+
+Matter.Events.on(engine, 'afterUpdate', function () {
+    if (firing && Math.abs(ball.position.x - _width / 2) < 20 && Math.abs(ball.position.y - _height / 2) < 20) {
+        ball = Matter.Bodies.circle(_width / 2, _height / 2, 20);
+        Matter.World.add(engine.world, ball);
+        sling.bodyB = ball;
+        firing = false;
+    }
+});
+
+Matter.World.add(engine.world, [ ball, sling, mouseConstraint]);
+
 }
 
-function LinkedIn(){
-    window.open(
-        'https://www.google.be',
-        '_blank'
-      );
-}
+
+
+
