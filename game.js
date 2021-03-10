@@ -23,6 +23,19 @@ let render = Matter.Render.create({
 // var ground1 = Matter.Bodies.rectangle(700, 500, 1200, 20, { isStatic: true, angle: Math.PI * -0.05, render: { fillStyle: colorA } });
 
 let ball = Matter.Bodies.circle(_width / 2, _height / 2, 20);
+
+let shootme = Matter.Bodies.circle(_width / 2, _height / 2, 1, {
+    isStatic: true,
+    isSensor: true,
+    render: {
+        sprite: {
+            texture: './img/shootMe.png',
+            xScale: 0.5,
+            yScale: 0.5,
+        }
+    }
+});
+
 let sling = Matter.Constraint.create({
     pointA: { x: _width / 2, y: _height / 2 },
     bodyB: ball,
@@ -185,11 +198,16 @@ Matter.Events.on(engine, 'collisionEnd', function (event) {
 
     var pairs = event.pairs;
 
-    for (var i = 0, j = pairs.length; i != j; ++i) {
-        var pair = pairs[i];
+    if(falling || pairs.length >= 2)return;
 
-        if (!falling) {
 
+    //for (var i = 0, j = pairs.length; i != j; ++i) {
+        var pair = pairs[0];
+
+        if(pair.bodyA === shootme || pair.bodyB === shootme){
+            return;
+        }
+        else{
             if (pair.bodyA === sensorLinkedIn || pair.bodyB === sensorLinkedIn) {
                 LinkedIn();
             }
@@ -214,11 +232,9 @@ Matter.Events.on(engine, 'collisionEnd', function (event) {
             else if (pair.bodyA === sensorInteresses || pair.bodyB === sensorInteresses) {
                 Interesses()
             }
+            falling = true;
         }
-
-        falling = true;
-    }
-
+    //}
     delay = setTimeout(DoneFalling, 2000);
 });
 
@@ -229,7 +245,7 @@ function DoneFalling() {
 
 engine.world.gravity.y = 0.2;
 
-Matter.World.add(engine.world, [sensorHardskills, sensorSoftskills, sensorTalen, sensorInteresses, sensorLinkedIn, sensorGitHub, sensorCv, sensorGoNuts, ball, sling, mouseConstraint]);
+Matter.World.add(engine.world, [ shootme, sensorHardskills, sensorSoftskills, sensorTalen, sensorInteresses, sensorLinkedIn, sensorGitHub, sensorCv, sensorGoNuts, ball, sling, mouseConstraint]);
 Matter.Engine.run(engine);
 Matter.Render.run(render);
 
