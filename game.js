@@ -215,7 +215,7 @@ Matter.Events.on(engine, 'collisionEnd', function (event) {
 });
 
 
-engine.world.gravity.y = 0.5;
+engine.world.gravity.y = 0.2;
 
 Matter.World.add(engine.world, [sensorHardskills, sensorSoftskills, sensorTalen, sensorInteresses, sensorLinkedIn, sensorGitHub, sensorCv, sensorGoNuts, ball, sling, mouseConstraint]);
 Matter.Engine.run(engine);
@@ -248,7 +248,7 @@ let interval;
 function HardSkills(){
 
     counter = 0;
-    let itemsArr = ['./img/ball.png', './img/nederlands.svg','./img/ball.png', './img/nederlands.svg'];
+    let itemsArr = ['./img/hs-1.svg', './img/hs-2.svg', './img/hs-3.svg', './img/hs-4.svg', './img/hs-5.svg', './img/hs-6.svg', ];
     AddTitleToWorld('./img/F-hardskills.svg');
     AddItemsToWorld(itemsArr);
     interval = setInterval(AddItemsToWorld, 300, itemsArr);
@@ -275,7 +275,7 @@ function Talenkennis(){
 function Interesses(){
 
     counter = 0;
-    let itemsArr = ['./img/ball.png', './img/nederlands.svg'];
+    let itemsArr = ['./img/i-1.svg', './img/i-2.svg','./img/i-3.svg','./img/i-4.svg',];
     AddTitleToWorld('./img/F-interesses.svg');
     AddItemsToWorld(itemsArr);
     interval = setInterval(AddItemsToWorld, 300, itemsArr);
@@ -348,7 +348,7 @@ function AddItemsToWorld(items){
             sprite: {
                 texture: path,
                 xScale: _width/3000,
-                yScale: 0.5,
+                yScale: _width/3000,
                 xOffset:  -_width/3000
             }
         }
@@ -369,7 +369,7 @@ function AddTitleToWorld(theTitle){
             sprite: {
                 texture: path,
                 xScale: _width/1000,
-                yScale: 1,
+                yScale: _width/1000,
                 xOffset:  -_width/12000
             }
         }
