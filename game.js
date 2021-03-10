@@ -117,7 +117,7 @@ let sensorInteresses = Matter.Bodies.rectangle(_width / 40, sensorHeight / 2 + 3
     }
 });
 
-let sensorLinkedIn = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight/2, _width / 20, _height / 4, {
+let sensorLinkedIn = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight / 2, _width / 20, _height / 4, {
     isSensor: true,
     isStatic: true,
     render: {
@@ -133,7 +133,7 @@ let sensorLinkedIn = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight/
     }
 });
 
-let sensorGitHub = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight/2 + sensorHeight, _width / 20, _height / 4, {
+let sensorGitHub = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight / 2 + sensorHeight, _width / 20, _height / 4, {
     isSensor: true,
     isStatic: true,
     render: {
@@ -149,7 +149,7 @@ let sensorGitHub = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight/2 
     }
 });
 
-let sensorCv = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight/2 + 2 * sensorHeight, _width / 20, _height / 4, {
+let sensorCv = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight / 2 + 2 * sensorHeight, _width / 20, _height / 4, {
     isSensor: true,
     isStatic: true,
     render: {
@@ -165,7 +165,7 @@ let sensorCv = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight/2 + 2 
     }
 });
 
-let sensorGoNuts = Matter.Bodies.rectangle(_width - _width / 40,sensorHeight/2 + 3 * sensorHeight, _width / 20, _height / 4, {
+let sensorGoNuts = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight / 2 + 3 * sensorHeight, _width / 20, _height / 4, {
     isSensor: true,
     isStatic: true,
     render: {
@@ -182,37 +182,49 @@ let sensorGoNuts = Matter.Bodies.rectangle(_width - _width / 40,sensorHeight/2 +
 });
 
 Matter.Events.on(engine, 'collisionEnd', function (event) {
+
     var pairs = event.pairs;
 
     for (var i = 0, j = pairs.length; i != j; ++i) {
         var pair = pairs[i];
 
-        if (pair.bodyA === sensorLinkedIn || pair.bodyB === sensorLinkedIn) {
-            LinkedIn();
+        if (!falling) {
+
+            if (pair.bodyA === sensorLinkedIn || pair.bodyB === sensorLinkedIn) {
+                LinkedIn();
+            }
+            else if (pair.bodyA === sensorGitHub || pair.bodyB === sensorGitHub) {
+                GitHub();
+            }
+            else if (pair.bodyA === sensorCv || pair.bodyB === sensorCv) {
+                Cv();
+            }
+            else if (pair.bodyA === sensorGoNuts || pair.bodyB === sensorGoNuts) {
+                GoNuts();
+            }
+            else if (pair.bodyA === sensorHardskills || pair.bodyB === sensorHardskills) {
+                HardSkills()
+            }
+            else if (pair.bodyA === sensorSoftskills || pair.bodyB === sensorSoftskills) {
+                SoftSkills()
+            }
+            else if (pair.bodyA === sensorTalen || pair.bodyB === sensorTalen) {
+                Talenkennis()
+            }
+            else if (pair.bodyA === sensorInteresses || pair.bodyB === sensorInteresses) {
+                Interesses()
+            }
         }
-        else if (pair.bodyA === sensorGitHub || pair.bodyB === sensorGitHub) {
-            GitHub();
-        }
-        else if (pair.bodyA === sensorCv || pair.bodyB === sensorCv) {
-            Cv();
-        }
-        else if (pair.bodyA === sensorGoNuts || pair.bodyB === sensorGoNuts) {
-            GoNuts();
-        }
-        else if (pair.bodyA === sensorHardskills || pair.bodyB === sensorHardskills) {
-            HardSkills()
-        }
-        else if (pair.bodyA === sensorSoftskills || pair.bodyB === sensorSoftskills) {
-            SoftSkills()
-        }
-        else if (pair.bodyA === sensorTalen || pair.bodyB === sensorTalen) {
-            Talenkennis()
-        }
-        else if (pair.bodyA === sensorInteresses || pair.bodyB === sensorInteresses) {
-            Interesses()
-        }
+
+        falling = true;
     }
+
+    delay = setTimeout(DoneFalling, 2000);
 });
+
+function DoneFalling() {
+    falling = false;
+}
 
 
 engine.world.gravity.y = 0.2;
@@ -244,38 +256,39 @@ window.onresize = function () {
 
 let counter;
 let interval;
+let falling = false;
 
-function HardSkills(){
+function HardSkills() {
 
     counter = 0;
-    let itemsArr = ['./img/hs-1.svg', './img/hs-2.svg', './img/hs-3.svg', './img/hs-4.svg', './img/hs-5.svg', './img/hs-6.svg', ];
+    let itemsArr = ['./img/hs-5.svg', './img/hs-1.svg', './img/hs-2.svg', './img/hs-3.svg', './img/hs-4.svg', './img/hs-6.svg'];
     AddTitleToWorld('./img/F-hardskills.svg');
     AddItemsToWorld(itemsArr);
     interval = setInterval(AddItemsToWorld, 300, itemsArr);
 }
 
-function SoftSkills(){
+function SoftSkills() {
 
     counter = 0;
-    let itemsArr = ['./img/ball.png', './img/nederlands.svg'];
+    let itemsArr = ['./img/hs-1.svg', './img/hs-2.svg', './img/hs-3.svg', './img/hs-4.svg', './img/hs-5.svg', './img/hs-6.svg'];
     AddTitleToWorld('./img/F-softskills.svg');
     AddItemsToWorld(itemsArr);
     interval = setInterval(AddItemsToWorld, 300, itemsArr);
 }
 
-function Talenkennis(){
+function Talenkennis() {
 
     counter = 0;
-    let itemsArr = ['./img/ball.png', './img/nederlands.svg'];
+    let itemsArr = ['./img/t-1.svg', './img/t-2.svg', './img/t-3.svg'];
     AddTitleToWorld('./img/F-talenkennis.svg');
     AddItemsToWorld(itemsArr);
     interval = setInterval(AddItemsToWorld, 300, itemsArr);
 }
 
-function Interesses(){
+function Interesses() {
 
     counter = 0;
-    let itemsArr = ['./img/i-1.svg', './img/i-2.svg','./img/i-3.svg','./img/i-4.svg',];
+    let itemsArr = ['./img/i-1.svg', './img/i-2.svg', './img/i-3.svg', './img/i-4.svg',];
     AddTitleToWorld('./img/F-interesses.svg');
     AddItemsToWorld(itemsArr);
     interval = setInterval(AddItemsToWorld, 300, itemsArr);
@@ -338,42 +351,42 @@ function GoNuts() {
     Matter.World.add(engine.world, [ball, sling, mouseConstraint]);
 }
 
-function AddItemsToWorld(items){
+function AddItemsToWorld(items) {
 
-    if (counter < items.length){
+    if (counter < items.length) {
 
         path = items[counter];
-        let item = Matter.Bodies.rectangle(_width /4 * 3, 1,1,1, {
-        render: {
-            sprite: {
-                texture: path,
-                xScale: _width/3000,
-                yScale: _width/3000,
-                xOffset:  -_width/3000
+        let item = Matter.Bodies.rectangle(_width / 4 * 3 + 30, 1, 1, 1, {
+            render: {
+                sprite: {
+                    texture: path,
+                    xScale: (1 / 1000 * _width) * 0.7,
+                    yScale: (1 / 1000 * _width) * 0.7,
+                    xOffset: 0.2
+                }
             }
-        }
         });
-        Matter.World.add(engine.world,item);
+        Matter.World.add(engine.world, item);
         counter++;
     }
-    else{
+    else {
         clearInterval(interval);
     }
 }
 
-function AddTitleToWorld(theTitle){
+function AddTitleToWorld(theTitle) {
 
     path = theTitle;
-        let title = Matter.Bodies.rectangle(_width /4 , 1,1,1, {
+    let title = Matter.Bodies.rectangle(_width / 4, 1, 1, 1, {
         render: {
             sprite: {
                 texture: path,
-                xScale: _width/1000,
-                yScale: _width/1000,
-                xOffset:  -_width/12000
+                xScale: 1 / 1000 * _width,
+                yScale: 1 / 1000 * _width,
+                xOffset: -_width / 12000
             }
         }
-        });
-        Matter.World.add(engine.world,title);
+    });
+    Matter.World.add(engine.world, title);
 }
 
