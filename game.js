@@ -1,7 +1,7 @@
 var colorA = '#f55a3c'
 
-var _width = window.innerWidth * 990/1000;
-var _height = window.innerHeight * 990/1000;
+var _width = window.innerWidth * 990 / 1000;
+var _height = window.innerHeight * 990 / 1000;
 
 let sensorHeight = _height / 4;
 
@@ -24,7 +24,7 @@ let render = Matter.Render.create({
 
 let ball = Matter.Bodies.circle(_width / 2, _height / 2, 20);
 let sling = Matter.Constraint.create({
-    pointA: { x: _width / 2, y:_height / 2 },
+    pointA: { x: _width / 2, y: _height / 2 },
     bodyB: ball,
     stiffness: 0.05
 });
@@ -53,7 +53,7 @@ Matter.Events.on(engine, 'afterUpdate', function () {
     }
 });
 
-let sensorHardskills = Matter.Bodies.rectangle(_width/40,  sensorHeight/10, _width/20, _height/4, {
+let sensorHardskills = Matter.Bodies.rectangle(_width / 40, sensorHeight / 2, _width / 20, _height / 4, {
     isSensor: true,
     isStatic: true,
     render: {
@@ -64,12 +64,12 @@ let sensorHardskills = Matter.Bodies.rectangle(_width/40,  sensorHeight/10, _wid
             texture: './img/hardskills.svg',
             xScale: 0.5,
             yScale: 0.5,
+            yOffset: 0.25
         }
-
     }
 });
 
-let sensorSoftskills = Matter.Bodies.rectangle(_width/40,  sensorHeight/10 + sensorHeight, _width/20, _height/4, {
+let sensorSoftskills = Matter.Bodies.rectangle(_width / 40, sensorHeight / 2 + sensorHeight, _width / 20, _height / 4, {
     isSensor: true,
     isStatic: true,
     render: {
@@ -80,12 +80,12 @@ let sensorSoftskills = Matter.Bodies.rectangle(_width/40,  sensorHeight/10 + sen
             texture: './img/softskills.svg',
             xScale: 0.5,
             yScale: 0.5,
+            yOffset: 0.25
         }
-
     }
 });
 
-let sensorTalen = Matter.Bodies.rectangle(_width/40,  sensorHeight/10 + 2* sensorHeight, _width/20, _height/4, {
+let sensorTalen = Matter.Bodies.rectangle(_width / 40, sensorHeight / 2 + 2 * sensorHeight, _width / 20, _height / 4, {
     isSensor: true,
     isStatic: true,
     render: {
@@ -93,15 +93,15 @@ let sensorTalen = Matter.Bodies.rectangle(_width/40,  sensorHeight/10 + 2* senso
         fillStyle: 'transparent',
         lineWidth: 1,
         sprite: {
-            texture: './img/talen.svg',
+            texture: './img/talenkennis.svg',
             xScale: 0.5,
             yScale: 0.5,
+            yOffset: 0.25
         }
-
     }
 });
 
-let sensorInteresses = Matter.Bodies.rectangle(_width/40,  sensorHeight/10 + 3* sensorHeight, _width/20, _height/4, {
+let sensorInteresses = Matter.Bodies.rectangle(_width / 40, sensorHeight / 2 + 3 * sensorHeight, _width / 20, _height / 4, {
     isSensor: true,
     isStatic: true,
     render: {
@@ -112,12 +112,12 @@ let sensorInteresses = Matter.Bodies.rectangle(_width/40,  sensorHeight/10 + 3* 
             texture: './img/interesses.svg',
             xScale: 0.5,
             yScale: 0.5,
+            yOffset: 0.25
         }
-
     }
 });
 
-let sensorLinkedIn = Matter.Bodies.rectangle(_width - _width/40,  1, _width/20, _height/4, {
+let sensorLinkedIn = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight/2, _width / 20, _height / 4, {
     isSensor: true,
     isStatic: true,
     render: {
@@ -128,12 +128,12 @@ let sensorLinkedIn = Matter.Bodies.rectangle(_width - _width/40,  1, _width/20, 
             texture: './img/linkedin.svg',
             xScale: 0.5,
             yScale: 0.5,
+            yOffset: 0.25
         }
-
     }
 });
 
-let sensorGitHub = Matter.Bodies.rectangle(_width - _width/40,  sensorHeight, _width/20, _height/4, {
+let sensorGitHub = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight/2 + sensorHeight, _width / 20, _height / 4, {
     isSensor: true,
     isStatic: true,
     render: {
@@ -144,12 +144,12 @@ let sensorGitHub = Matter.Bodies.rectangle(_width - _width/40,  sensorHeight, _w
             texture: './img/github.svg',
             xScale: 0.5,
             yScale: 0.5,
+            yOffset: 0.25
         }
-
     }
 });
 
-let sensorAbout = Matter.Bodies.rectangle(_width - _width/40,  2* sensorHeight , _width/20, _height/4, {
+let sensorCv = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight/2 + 2 * sensorHeight, _width / 20, _height / 4, {
     isSensor: true,
     isStatic: true,
     render: {
@@ -157,15 +157,15 @@ let sensorAbout = Matter.Bodies.rectangle(_width - _width/40,  2* sensorHeight ,
         fillStyle: 'transparent',
         lineWidth: 1,
         sprite: {
-            texture: './img/about.svg',
+            texture: './img/cv.svg',
             xScale: 0.5,
             yScale: 0.5,
+            yOffset: 0.25
         }
-
     }
 });
 
-let sensorPlay = Matter.Bodies.rectangle(_width - _width/40,  3* sensorHeight , _width/20, _height/4, {
+let sensorGoNuts = Matter.Bodies.rectangle(_width - _width / 40,sensorHeight/2 + 3 * sensorHeight, _width / 20, _height / 4, {
     isSensor: true,
     isStatic: true,
     render: {
@@ -173,15 +173,15 @@ let sensorPlay = Matter.Bodies.rectangle(_width - _width/40,  3* sensorHeight , 
         fillStyle: 'transparent',
         lineWidth: 1,
         sprite: {
-            texture: './img/play.svg',
+            texture: './img/goNuts.svg',
             xScale: 0.5,
             yScale: 0.5,
+            yOffset: 0.25
         }
-
     }
 });
 
-Matter.Events.on(engine, 'collisionEnd', function(event) {
+Matter.Events.on(engine, 'collisionEnd', function (event) {
     var pairs = event.pairs;
 
     for (var i = 0, j = pairs.length; i != j; ++i) {
@@ -190,86 +190,164 @@ Matter.Events.on(engine, 'collisionEnd', function(event) {
         if (pair.bodyA === sensorLinkedIn || pair.bodyB === sensorLinkedIn) {
             LinkedIn();
         }
-        else if(pair.bodyA === sensorGitHub || pair.bodyB === sensorGitHub){
+        else if (pair.bodyA === sensorGitHub || pair.bodyB === sensorGitHub) {
             GitHub();
         }
-        else if(pair.bodyA === sensorAbout || pair.bodyB === sensorAbout){
-            About();
+        else if (pair.bodyA === sensorCv || pair.bodyB === sensorCv) {
+            Cv();
         }
-        else if(pair.bodyA === sensorPlay || pair.bodyB === sensorPlay){
-            Play();
+        else if (pair.bodyA === sensorGoNuts || pair.bodyB === sensorGoNuts) {
+            GoNuts();
+        }
+        else if (pair.bodyA === sensorTalen || pair.bodyB === sensorTalen) {
+            Talen();
+        }
+        else if (pair.bodyA === sensorHardskills || pair.bodyB === sensorHardskills) {
+            HardSkills()
         }
     }
 });
 
-Matter.World.add(engine.world, [sensorHardskills, sensorSoftskills, sensorTalen, sensorInteresses, sensorLinkedIn, sensorGitHub, sensorAbout, sensorPlay,  ball, sling, mouseConstraint]);
+
+engine.world.gravity.y = 0.5;
+
+Matter.World.add(engine.world, [sensorHardskills, sensorSoftskills, sensorTalen, sensorInteresses, sensorLinkedIn, sensorGitHub, sensorCv, sensorGoNuts, ball, sling, mouseConstraint]);
 Matter.Engine.run(engine);
 Matter.Render.run(render);
 
-window.onresize = function(){
-   location.reload();
+window.onresize = function () {
+    location.reload();
 };
 
-function LinkedIn(){
+function Talen() {
+
+    let path = './img/nederlands.svg'
+    let nederlands = Matter.Bodies.rectangle(_width /2-100, 1,1,1, {
+        render: {
+            sprite: {
+                texture: path,
+                xScale: _width/3000,
+                yScale: 0.5,
+                xOffset:  -_width/3000
+            }
+        }
+    });
+
+    Matter.World.add(engine.world,nederlands);
+}
+
+let counter;
+let interval;
+
+function HardSkills(){
+
+    let itemsArr = ['./img/ball.png', './img/nederlands.svg','./img/ball.png', './img/nederlands.svg'];
+    AddTitleToWorld('./img/nederlands.svg');
+    AddItemsToWorld(itemsArr);
+    counter = 0;
+    interval = setInterval(AddItemsToWorld, 300, itemsArr);
+}
+
+function AddItemsToWorld(items){
+
+    if (counter < items.length){
+
+        path = items[counter];
+        let item = Matter.Bodies.rectangle(_width /4 * 3, 1,1,1, {
+        render: {
+            sprite: {
+                texture: path,
+                xScale: _width/3000,
+                yScale: 0.5,
+                xOffset:  -_width/3000
+            }
+        }
+        });
+        Matter.World.add(engine.world,item);
+        counter++;
+    }
+    else{
+        clearInterval(interval);
+    }
+}
+
+function AddTitleToWorld(theTitle){
+
+    path = theTitle;
+        let title = Matter.Bodies.rectangle(_width /4 , 1,1,1, {
+        render: {
+            sprite: {
+                texture: path,
+                xScale: _width/3000,
+                yScale: 0.5,
+                xOffset:  -_width/3000
+            }
+        }
+        });
+        Matter.World.add(engine.world,title);
+}
+
+
+function LinkedIn() {
     window.open(
         'https://www.linkedin.com/in/pieter-vd-950228205/',
         '_blank'
-      );
+    );
 }
 
-function GitHub(){
+function GitHub() {
     window.open(
         'https://github.com/pieterCorp',
         '_blank'
     );
 }
 
-function About(){
-    let boll = Matter.Bodies.circle(900, 200, 20);
-    Matter.World.add(engine.world,boll);
-    console.log("test");
+function Cv() {
+    var audio = new Audio('./img/beep.mp3');
+    audio.play();
+    window.open('cv.pdf');
 }
 
-function Play(){
-    console.log("play was hit");
 
 
-    Matter.World.clear( engine.world)
+
+
+
+
+function GoNuts() {
+
+    Matter.World.clear(engine.world)
     let ball = Matter.Bodies.circle(_width / 2, _height / 2, 20);
-let sling = Matter.Constraint.create({
-    pointA: { x: _width / 2, y:_height / 2 },
-    bodyB: ball,
-    stiffness: 0.05
-});
+    let sling = Matter.Constraint.create({
+        pointA: { x: _width / 2, y: _height / 2 },
+        bodyB: ball,
+        stiffness: 0.05
+    });
 
-let mouse = Matter.Mouse.create(render.canvas);
-let mouseConstraint = Matter.MouseConstraint.create(engine, {
-    mouse: mouse,
-    constraint: {
-        render: { visible: false }
-    }
-});
+    let mouse = Matter.Mouse.create(render.canvas);
+    let mouseConstraint = Matter.MouseConstraint.create(engine, {
+        mouse: mouse,
+        constraint: {
+            render: { visible: false }
+        }
+    });
 
-render.mouse = mouse;
+    render.mouse = mouse;
 
-let firing = false;
-Matter.Events.on(mouseConstraint, 'enddrag', function (e) {
-    if (e.body === ball) firing = true;
-});
+    let firing = false;
+    Matter.Events.on(mouseConstraint, 'enddrag', function (e) {
+        if (e.body === ball) firing = true;
+    });
 
-Matter.Events.on(engine, 'afterUpdate', function () {
-    if (firing && Math.abs(ball.position.x - _width / 2) < 20 && Math.abs(ball.position.y - _height / 2) < 20) {
-        ball = Matter.Bodies.circle(_width / 2, _height / 2, 20);
-        Matter.World.add(engine.world, ball);
-        sling.bodyB = ball;
-        firing = false;
-    }
-});
+    Matter.Events.on(engine, 'afterUpdate', function () {
+        if (firing && Math.abs(ball.position.x - _width / 2) < 20 && Math.abs(ball.position.y - _height / 2) < 20) {
+            ball = Matter.Bodies.circle(_width / 2, _height / 2, 20);
+            Matter.World.add(engine.world, ball);
+            sling.bodyB = ball;
+            firing = false;
+        }
+    });
 
-Matter.World.add(engine.world, [ ball, sling, mouseConstraint]);
-
+    Matter.World.add(engine.world, [ball, sling, mouseConstraint]);
 }
-
-
-
 
