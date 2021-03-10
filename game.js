@@ -199,11 +199,17 @@ Matter.Events.on(engine, 'collisionEnd', function (event) {
         else if (pair.bodyA === sensorGoNuts || pair.bodyB === sensorGoNuts) {
             GoNuts();
         }
-        else if (pair.bodyA === sensorTalen || pair.bodyB === sensorTalen) {
-            Talen();
-        }
         else if (pair.bodyA === sensorHardskills || pair.bodyB === sensorHardskills) {
             HardSkills()
+        }
+        else if (pair.bodyA === sensorSoftskills || pair.bodyB === sensorSoftskills) {
+            SoftSkills()
+        }
+        else if (pair.bodyA === sensorTalen || pair.bodyB === sensorTalen) {
+            Talenkennis()
+        }
+        else if (pair.bodyA === sensorInteresses || pair.bodyB === sensorInteresses) {
+            Interesses()
         }
     }
 });
@@ -219,73 +225,65 @@ window.onresize = function () {
     location.reload();
 };
 
-function Talen() {
+// function Talen() {
 
-    let path = './img/nederlands.svg'
-    let nederlands = Matter.Bodies.rectangle(_width /2-100, 1,1,1, {
-        render: {
-            sprite: {
-                texture: path,
-                xScale: _width/3000,
-                yScale: 0.5,
-                xOffset:  -_width/3000
-            }
-        }
-    });
+//     let path = './img/nederlands.svg'
+//     let nederlands = Matter.Bodies.rectangle(_width /2-100, 1,1,1, {
+//         render: {
+//             sprite: {
+//                 texture: path,
+//                 xScale: _width/3000,
+//                 yScale: 0.5,
+//                 xOffset:  -_width/3000
+//             }
+//         }
+//     });
 
-    Matter.World.add(engine.world,nederlands);
-}
+//     Matter.World.add(engine.world,nederlands);
+// }
 
 let counter;
 let interval;
 
 function HardSkills(){
 
-    let itemsArr = ['./img/ball.png', './img/nederlands.svg','./img/ball.png', './img/nederlands.svg'];
-    AddTitleToWorld('./img/nederlands.svg');
-    AddItemsToWorld(itemsArr);
     counter = 0;
+    let itemsArr = ['./img/ball.png', './img/nederlands.svg','./img/ball.png', './img/nederlands.svg'];
+    AddTitleToWorld('./img/F-hardskills.svg');
+    AddItemsToWorld(itemsArr);
     interval = setInterval(AddItemsToWorld, 300, itemsArr);
 }
 
-function AddItemsToWorld(items){
+function SoftSkills(){
 
-    if (counter < items.length){
-
-        path = items[counter];
-        let item = Matter.Bodies.rectangle(_width /4 * 3, 1,1,1, {
-        render: {
-            sprite: {
-                texture: path,
-                xScale: _width/3000,
-                yScale: 0.5,
-                xOffset:  -_width/3000
-            }
-        }
-        });
-        Matter.World.add(engine.world,item);
-        counter++;
-    }
-    else{
-        clearInterval(interval);
-    }
+    counter = 0;
+    let itemsArr = ['./img/ball.png', './img/nederlands.svg'];
+    AddTitleToWorld('./img/F-softskills.svg');
+    AddItemsToWorld(itemsArr);
+    interval = setInterval(AddItemsToWorld, 300, itemsArr);
 }
 
-function AddTitleToWorld(theTitle){
+function Talenkennis(){
 
-    path = theTitle;
-        let title = Matter.Bodies.rectangle(_width /4 , 1,1,1, {
-        render: {
-            sprite: {
-                texture: path,
-                xScale: _width/3000,
-                yScale: 0.5,
-                xOffset:  -_width/3000
-            }
-        }
-        });
-        Matter.World.add(engine.world,title);
+    counter = 0;
+    let itemsArr = ['./img/ball.png', './img/nederlands.svg'];
+    AddTitleToWorld('./img/F-talenkennis.svg');
+    AddItemsToWorld(itemsArr);
+    interval = setInterval(AddItemsToWorld, 300, itemsArr);
 }
+
+function Interesses(){
+
+    counter = 0;
+    let itemsArr = ['./img/ball.png', './img/nederlands.svg'];
+    AddTitleToWorld('./img/F-interesses.svg');
+    AddItemsToWorld(itemsArr);
+    interval = setInterval(AddItemsToWorld, 300, itemsArr);
+}
+
+
+
+
 
 
 function LinkedIn() {
@@ -307,12 +305,6 @@ function Cv() {
     audio.play();
     window.open('cv.pdf');
 }
-
-
-
-
-
-
 
 function GoNuts() {
 
@@ -349,5 +341,44 @@ function GoNuts() {
     });
 
     Matter.World.add(engine.world, [ball, sling, mouseConstraint]);
+}
+
+function AddItemsToWorld(items){
+
+    if (counter < items.length){
+
+        path = items[counter];
+        let item = Matter.Bodies.rectangle(_width /4 * 3, 1,1,1, {
+        render: {
+            sprite: {
+                texture: path,
+                xScale: _width/3000,
+                yScale: 0.5,
+                xOffset:  -_width/3000
+            }
+        }
+        });
+        Matter.World.add(engine.world,item);
+        counter++;
+    }
+    else{
+        clearInterval(interval);
+    }
+}
+
+function AddTitleToWorld(theTitle){
+
+    path = theTitle;
+        let title = Matter.Bodies.rectangle(_width /4 , 1,1,1, {
+        render: {
+            sprite: {
+                texture: path,
+                xScale: _width/1000,
+                yScale: 1,
+                xOffset:  -_width/12000
+            }
+        }
+        });
+        Matter.World.add(engine.world,title);
 }
 
