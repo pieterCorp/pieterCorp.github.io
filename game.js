@@ -281,11 +281,6 @@ function Interesses(){
     interval = setInterval(AddItemsToWorld, 300, itemsArr);
 }
 
-
-
-
-
-
 function LinkedIn() {
     window.open(
         'https://www.linkedin.com/in/pieter-vd-950228205/',
