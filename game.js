@@ -167,12 +167,14 @@ let sensorGoNuts = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight / 
     }
 });
 
-let sensorBack = Matter.Bodies.circle(1, 1, _width / 40, {
+let sensorBack = Matter.Bodies.circle(1, 1, _width / 25, {
     isStatic: true,
     isSensor: true,
     render: {
         sprite: {
-            texture: './img/ball.png',
+            texture: './img/p.png',
+            xScale: 0.05,
+            yScale: 0.05,
         }
     }
 });
@@ -182,7 +184,9 @@ let sensorRain = Matter.Bodies.circle(_width, 1, _width / 40, {
     isSensor: true,
     render: {
         sprite: {
-            texture: './img/ball.png',
+            texture: './img/p.png',
+            xScale: 0.05,
+            yScale: 0.05,
         }
     }
 });
@@ -357,7 +361,7 @@ function GoNuts() {
     //     return Matter.Bodies.polygon(x, y, 8, 20);
     // });
 
-    engine.world.gravity.y = 0.5;
+    engine.world.gravity.y = 1;
     Matter.World.add(engine.world, [ball, ground1, ground2, sling, mouseConstraint, sensorBack, sensorRain]);
 }
 
@@ -403,6 +407,8 @@ function AddTitleToWorld(theTitle) {
 function LetItRain(){
     var audio = new Audio('./img/oeps.mp3');
     audio.play();
+    console.log("rainwashit")
+
     raindropCounter = 0;
     interval = setInterval(MakeRain, 100);
 }
