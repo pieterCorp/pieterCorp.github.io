@@ -19,9 +19,6 @@ let render = Matter.Render.create({
     }
 });
 
-//let ground = Matter.Bodies.rectangle(_width/5*4, _height/5*2, _width/6, _height/20, { isStatic: true });
-// var ground1 = Matter.Bodies.rectangle(700, 500, 1200, 20, { isStatic: true, angle: Math.PI * -0.05, render: { fillStyle: colorA } });
-
 let ball = Matter.Bodies.circle(_width / 2, _height / 2, 20);
 
 let shootme = Matter.Bodies.circle(_width / 2, _height / 2, 1, {
@@ -70,9 +67,6 @@ let sensorHardskills = Matter.Bodies.rectangle(_width / 40, sensorHeight / 2, _w
     isSensor: true,
     isStatic: true,
     render: {
-        strokeStyle: colorA,
-        fillStyle: 'transparent',
-        lineWidth: 1,
         sprite: {
             texture: './img/hardskills.svg',
             xScale: 0.5,
@@ -86,9 +80,6 @@ let sensorSoftskills = Matter.Bodies.rectangle(_width / 40, sensorHeight / 2 + s
     isSensor: true,
     isStatic: true,
     render: {
-        strokeStyle: colorA,
-        fillStyle: 'transparent',
-        lineWidth: 1,
         sprite: {
             texture: './img/softskills.svg',
             xScale: 0.5,
@@ -102,9 +93,6 @@ let sensorTalen = Matter.Bodies.rectangle(_width / 40, sensorHeight / 2 + 2 * se
     isSensor: true,
     isStatic: true,
     render: {
-        strokeStyle: colorA,
-        fillStyle: 'transparent',
-        lineWidth: 1,
         sprite: {
             texture: './img/talenkennis.svg',
             xScale: 0.5,
@@ -118,9 +106,6 @@ let sensorInteresses = Matter.Bodies.rectangle(_width / 40, sensorHeight / 2 + 3
     isSensor: true,
     isStatic: true,
     render: {
-        strokeStyle: colorA,
-        fillStyle: 'transparent',
-        lineWidth: 1,
         sprite: {
             texture: './img/interesses.svg',
             xScale: 0.5,
@@ -134,9 +119,6 @@ let sensorLinkedIn = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight 
     isSensor: true,
     isStatic: true,
     render: {
-        strokeStyle: colorA,
-        fillStyle: 'transparent',
-        lineWidth: 1,
         sprite: {
             texture: './img/linkedin.svg',
             xScale: 0.5,
@@ -150,9 +132,6 @@ let sensorGitHub = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight / 
     isSensor: true,
     isStatic: true,
     render: {
-        strokeStyle: colorA,
-        fillStyle: 'transparent',
-        lineWidth: 1,
         sprite: {
             texture: './img/github.svg',
             xScale: 0.5,
@@ -166,9 +145,6 @@ let sensorCv = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight / 2 + 
     isSensor: true,
     isStatic: true,
     render: {
-        strokeStyle: colorA,
-        fillStyle: 'transparent',
-        lineWidth: 1,
         sprite: {
             texture: './img/cv.svg',
             xScale: 0.5,
@@ -182,9 +158,6 @@ let sensorGoNuts = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight / 
     isSensor: true,
     isStatic: true,
     render: {
-        strokeStyle: colorA,
-        fillStyle: 'transparent',
-        lineWidth: 1,
         sprite: {
             texture: './img/goNuts.svg',
             xScale: 0.5,
@@ -194,90 +167,104 @@ let sensorGoNuts = Matter.Bodies.rectangle(_width - _width / 40, sensorHeight / 
     }
 });
 
+let sensorBack = Matter.Bodies.circle(1, 1, _width / 40, {
+    isStatic: true,
+    isSensor: true,
+    render: {
+        sprite: {
+            texture: './img/ball.png',
+        }
+    }
+});
+
+let sensorRain = Matter.Bodies.circle(_width, 1, _width / 40, {
+    isStatic: true,
+    isSensor: true,
+    render: {
+        sprite: {
+            texture: './img/ball.png',
+        }
+    }
+});
+
+
 Matter.Events.on(engine, 'collisionEnd', function (event) {
 
-    var pairs = event.pairs;
-
-    if(falling || pairs.length >= 2)return;
-
-
-    //for (var i = 0, j = pairs.length; i != j; ++i) {
-        var pair = pairs[0];
-
-        if(pair.bodyA === shootme || pair.bodyB === shootme){
+    let pairs = event.pairs;
+    if(!ignoreDouble){
+        if (falling || pairs.length >= 2){
+            console.log("shit");
             return;
         }
-        else{
-            if (pair.bodyA === sensorLinkedIn || pair.bodyB === sensorLinkedIn) {
-                LinkedIn();
-            }
-            else if (pair.bodyA === sensorGitHub || pair.bodyB === sensorGitHub) {
-                GitHub();
-            }
-            else if (pair.bodyA === sensorCv || pair.bodyB === sensorCv) {
-                Cv();
-            }
-            else if (pair.bodyA === sensorGoNuts || pair.bodyB === sensorGoNuts) {
-                GoNuts();
-            }
-            else if (pair.bodyA === sensorHardskills || pair.bodyB === sensorHardskills) {
-                HardSkills()
-            }
-            else if (pair.bodyA === sensorSoftskills || pair.bodyB === sensorSoftskills) {
-                SoftSkills()
-            }
-            else if (pair.bodyA === sensorTalen || pair.bodyB === sensorTalen) {
-                Talenkennis()
-            }
-            else if (pair.bodyA === sensorInteresses || pair.bodyB === sensorInteresses) {
-                Interesses()
-            }
-            falling = true;
+    }
+
+    let pair = pairs[0];
+
+    if (pair.bodyA === shootme || pair.bodyB === shootme) {
+        return;
+    }
+    else {
+        if (pair.bodyA === sensorLinkedIn || pair.bodyB === sensorLinkedIn) {
+            LinkedIn();
         }
-    //}
-    delay = setTimeout(DoneFalling, 2000);
+        else if (pair.bodyA === sensorGitHub || pair.bodyB === sensorGitHub) {
+            GitHub();
+        }
+        else if (pair.bodyA === sensorCv || pair.bodyB === sensorCv) {
+            Cv();
+        }
+        else if (pair.bodyA === sensorGoNuts || pair.bodyB === sensorGoNuts) {
+            ignoreDouble = true;
+            GoNuts();
+        }
+        else if (pair.bodyA === sensorHardskills || pair.bodyB === sensorHardskills) {
+            HardSkills()
+        }
+        else if (pair.bodyA === sensorSoftskills || pair.bodyB === sensorSoftskills) {
+            SoftSkills()
+        }
+        else if (pair.bodyA === sensorTalen || pair.bodyB === sensorTalen) {
+            Talenkennis()
+        }
+        else if (pair.bodyA === sensorInteresses || pair.bodyB === sensorInteresses) {
+            Interesses()
+        }
+        else if (pair.bodyA === sensorRain || pair.bodyB === sensorRain) {
+
+            LetItRain();
+        }
+        else if (pair.bodyA === sensorBack || pair.bodyB === sensorBack) {
+            ignoreDouble = false;
+            location.reload();
+        }
+        falling = true;
+    }
+    delay = setTimeout(DoneFalling, 3000);
 });
 
 function DoneFalling() {
     falling = false;
 }
 
-
 engine.world.gravity.y = 0.2;
 
-Matter.World.add(engine.world, [ shootme, sensorHardskills, sensorSoftskills, sensorTalen, sensorInteresses, sensorLinkedIn, sensorGitHub, sensorCv, sensorGoNuts, ball, sling, mouseConstraint]);
+Matter.World.add(engine.world, [shootme, sensorHardskills, sensorSoftskills, sensorTalen, sensorInteresses, sensorLinkedIn, sensorGitHub, sensorCv, sensorGoNuts, ball, sling, mouseConstraint]);
 Matter.Engine.run(engine);
 Matter.Render.run(render);
 
 window.onresize = function () {
     location.reload();
 };
-
-// function Talen() {
-
-//     let path = './img/nederlands.svg'
-//     let nederlands = Matter.Bodies.rectangle(_width /2-100, 1,1,1, {
-//         render: {
-//             sprite: {
-//                 texture: path,
-//                 xScale: _width/3000,
-//                 yScale: 0.5,
-//                 xOffset:  -_width/3000
-//             }
-//         }
-//     });
-
-//     Matter.World.add(engine.world,nederlands);
-// }
-
+let raindropCounter;
 let counter;
 let interval;
 let falling = false;
+let ignoreDouble = false;
 
 function HardSkills() {
 
     counter = 0;
-    let itemsArr = ['./img/hs-5.svg', './img/hs-1.svg', './img/hs-2.svg', './img/hs-3.svg', './img/hs-4.svg', './img/hs-6.svg'];
+    let itemsArr = ['./img/ss-0.svg', './img/ss-1.svg', './img/ss-2.svg', './img/ss-3.svg', './img/ss-4.svg', './img/ss-5.svg', './img/ss-6.svg', './img/ss-7.svg', './img/ss-8.svg',];
     AddTitleToWorld('./img/F-hardskills.svg');
     AddItemsToWorld(itemsArr);
     interval = setInterval(AddItemsToWorld, 300, itemsArr);
@@ -325,8 +312,6 @@ function GitHub() {
 }
 
 function Cv() {
-    var audio = new Audio('./img/beep.mp3');
-    audio.play();
     window.open('cv.pdf');
 }
 
@@ -364,7 +349,16 @@ function GoNuts() {
         }
     });
 
-    Matter.World.add(engine.world, [ball, sling, mouseConstraint]);
+    let ground1 = Matter.Bodies.rectangle(_width / 4, _height - _height / 20, _width/2, 5, { isStatic: true, angle: Math.PI * -0.05, render: { fillStyle: colorA } });
+    let ground2 = Matter.Bodies.rectangle(_width / 4*3, _height - _height / 20, _width/2, 5, { isStatic: true, angle: Math.PI * 0.05, render: { fillStyle: colorA } });
+    // let ground3 = Matter.Bodies.rectangle(_width/16, _height/5*4, _width/10, 5, { isStatic: true, render: { fillStyle: colorA } });
+
+    // let stack = Matter.Composites.stack(_width/16 - 20, _height/5*4 -400, 2, 10, 0, 0, function (x, y) {
+    //     return Matter.Bodies.polygon(x, y, 8, 20);
+    // });
+
+    engine.world.gravity.y = 0.5;
+    Matter.World.add(engine.world, [ball, ground1, ground2, sling, mouseConstraint, sensorBack, sensorRain]);
 }
 
 function AddItemsToWorld(items) {
@@ -405,4 +399,28 @@ function AddTitleToWorld(theTitle) {
     });
     Matter.World.add(engine.world, title);
 }
+
+function LetItRain(){
+    var audio = new Audio('./img/oeps.mp3');
+    audio.play();
+    raindropCounter = 0;
+    interval = setInterval(MakeRain, 100);
+}
+
+function MakeRain(){
+    let maximum = _width -100;
+    let minimum = 100;
+
+    if(raindropCounter < 100){
+        var x = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+        let raindrop = Matter.Bodies.circle(x, 1, _width/80);
+        Matter.World.add(engine.world, raindrop);
+        raindropCounter++
+    }
+    else{
+        clearInterval(interval);
+    }
+
+}
+
 
